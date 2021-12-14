@@ -1,4 +1,9 @@
 var img;
+var generation;
+
+var mutation_rate = 0.10;
+var num_pop = 1;
+var num_circs = 3;
 
 function preload() {
     img = loadImage('test.jpg');
@@ -9,19 +14,24 @@ function setup() {
     pixelDensity(1);
 
     // create a new population of circles
-    Cpop = new circles(10, 3);
+    Cpop = new circles(num_pop, num_circs);
 
     Cpop.populate();
     //Cpop.make_images();
+    generation = 1;
 }
 
 function draw() {
+    background(255);
+
+    //console.log('Generation ' + generation);
 
     Cpop.create_images();
-    image(Cpop.graphics[0], 0, 0);
     Cpop.calc_fitness();
 
+    Cpop.display_best();
 
-    noLoop();
+    Cpop.reproduce();
 
+    generation++;
 }

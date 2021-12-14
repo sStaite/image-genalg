@@ -1,29 +1,27 @@
-
+var img;
 
 function preload() {
-  img = loadImage('test.jpg');
+    img = loadImage('test.jpg');
 }
 
 function setup() {
     createCanvas(img.width, img.height);
+    pixelDensity(1);
 
     // create a new population of circles
     Cpop = new circles(10, 3);
 
     Cpop.populate();
-    console.log(Cpop);
+    //Cpop.make_images();
 }
 
 function draw() {
 
-    for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 3; j++) {
-            let curr = Cpop.population[i][j]
-            let c = color(curr.colour[0], curr.colour[1], curr.colour[2]);
-            noStroke();
-            fill(c);
-            circle(curr.x, curr.y, curr.radius * 2);
-        }
-    }
+    Cpop.create_images();
+    image(Cpop.graphics[0], 0, 0);
+    Cpop.calc_fitness();
+
+
+    noLoop();
 
 }
